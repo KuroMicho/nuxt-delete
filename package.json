@@ -1,0 +1,22 @@
+{
+  "name": "nuxt-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.15",
+    "firebase": "^5.9.2",
+    "nuxt": "^2.5.1",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "core-js": "^2.5.1"
+  }
+}
