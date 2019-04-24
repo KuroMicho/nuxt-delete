@@ -8,7 +8,13 @@
     <div class="row">
       <div class="col-sm-12">
         <b-form-group label="Imagen:" label-for="imagen">
-          <b-form-file id="imagen" placeholder="Cargar Imagen" drop-placeholder="Cargar Imagen"/>
+          <b-form-file
+            id="imagen"
+            accept="image/*"
+            v-model="imageProduct"
+            placeholder="Cargar Imagen"
+            drop-placeholder="Cargar Imagen"
+          />
         </b-form-group>
 
         <b-form-group label="Nombre:" label-for="nombre">
@@ -45,7 +51,7 @@
 
     <div class="row">
       <div class="col-xs-12 offset-sm-5">
-          <b-spinner variant="primary" v-if="guardando"></b-spinner>
+        <b-spinner variant="primary" v-if="guardando"></b-spinner>
       </div>
     </div>
 
@@ -63,26 +69,35 @@
 </template>
 
 <script>
-import { db } from '../../services/firebase'
+import { db, storage } from "../../services/firebase";
 
 export default {
-  data(){
+  data() {
     return {
       form: {
-        nombre: '',
-        cantidad: '',
-        precio: '',
+        nombre: "",
+        cantidad: "",
+        precio: ""
       },
       guardando: false,
-    }
+      imageProduct: null
+    };
   },
   methods: {
-    guardarProducto(){
-      this.guardando = true
-      db.collection('productos').add(this.form).then(res => {
-        this.$router.push({ path: "/productos" })
-      })
+    guardarProducto() {
+      this.guardando = true;
+
+      let imageRef = storage.child(this.imageProduct.name);
+      imageRef.put(this.imageProduct).then(async imageRes => {
+        this.form.image = await imageRes.ref.getDownloadURL();
+
+        db.collection("productos")
+          .add(this.form)
+          .then(res => {
+            this.$router.push({ path: "/productos" });
+          });
+      });
     }
   }
-}
+};
 </script>

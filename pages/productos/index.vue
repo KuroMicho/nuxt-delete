@@ -21,14 +21,18 @@
           :current-page="currentPage"
           :per-page="perPage"
         >
-          <template slot="acciones" slot-scope="row">
-            <b-button variant="success">Editar</b-button>
+          <template slot="acciones" slot-scope="data">
+            <b-button variant="success" :href="`/productos/${data.item.id}`">Editar</b-button>
 
             <b-button
               variant="danger"
               type="button"
-              @click="eliminar(row.item.id, row.index)"
+              @click="eliminar(data.item.id, data.index)"
             >Eliminar</b-button>
+          </template>
+
+          <template slot="image" slot-scope="data">
+            <b-img width="150" :src="data.item.image"></b-img>
           </template>
         </b-table>
 
@@ -73,7 +77,10 @@ export default {
   data() {
     return {
       fields: [
-        "Imagen",
+        {
+          key: "image",
+          sortable: false
+        },
         {
           key: "id",
           sortable: true
