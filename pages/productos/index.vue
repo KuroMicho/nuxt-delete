@@ -106,13 +106,17 @@ export default {
   },
   methods: {
     eliminar(id, index) {
-      db.collection("productos")
-        .doc(id)
-        .delete()
-        .then(res => {
-          this.items.splice(index, 1);
-          alert("Producto eliminado");
-        });
+      if (confirm("Desea eliminar el producto?")) {
+        db.collection("productos")
+          .doc(id)
+          .delete()
+          .then(res => {
+            this.items.splice(index, 1);
+            alert("Producto eliminado");
+          });
+      } else {
+        alert("Una sabia decision.");
+      }
     }
   }
 };

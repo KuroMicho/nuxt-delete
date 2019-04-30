@@ -2,7 +2,7 @@
   <div>
     <h1>Editando Registro: {{producto}}</h1>
 
-    <b-form @submit.prevent="guardarProducto">
+    <b-form @submit.prevent="editarProducto">
       <div class="row mt-3">
         <div class="col-xs-6 col-sm-5 col-md-6">
           <h4>EDICION DE PRODUCTO</h4>
@@ -68,6 +68,7 @@
 
 <script>
 import { db, storage } from "../../services/firebase";
+import { async } from "q";
 
 export default {
   asyncData({ params }) {
@@ -95,19 +96,18 @@ export default {
     };
   },
   methods: {
-    guardarProducto() {
-      /* db.collection("productos")
-          .add(this.form)
-          .then(res => {
-            this.$router.push({ path: "/productos" });
-          }); */
-
-      db.collection("productos")
-        .doc(this.form)
-        .update(this.producto)
-        .then(function() {
-          this.producto = producto.data();
-          this.form = producto.id;
+    editarProducto() {
+      const update = db.collection("productos").doc(this.$route.params.id);
+      update
+        .set(this.producto)
+        .then(doc => {
+          this.key = key;
+          this.producto.nombre = producto.nombre;
+          this.producto.cantidad = producto.cantidad;
+          this.producto.precio = producto.precio;
+        })
+        .catch(rs => {
+          this.$router.push({ path: "/productos" });
         });
     }
   }
