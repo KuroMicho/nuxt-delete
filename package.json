@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nuxt"
+    "dev": "nuxt",
+    "generate": "nuxt generate",
+    "upload": "npm run generate && firebase deploy"
   },
   "keywords": [],
   "author": "",

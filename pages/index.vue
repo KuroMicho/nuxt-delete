@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Hola {{ msg }}</h1>
+        <h1>HolaMundso {{ msg }}</h1>
         <button type="button" class="btn btn-primary">Primary</button>
         <b-button variant="primary">Button</b-button>
     </div>
